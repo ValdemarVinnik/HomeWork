@@ -37,9 +37,9 @@ public class HomeWorkApp {
         int b = 9;
         String message;
 
-        if (a >= b){
+        if (a >= b) {
             message = "a >= b";
-        }else {
+        } else {
             message = "a < b";
         }
         printMessage(message);
