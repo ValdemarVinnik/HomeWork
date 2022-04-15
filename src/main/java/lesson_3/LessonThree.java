@@ -50,33 +50,96 @@ public class LessonThree {
         return array;
     }
 
-    public static int[] getArray(int length, int initialValue){
+    public static int[] getArray(int length, int initialValue) {
         int[] array = new int[length];
 
-        for (int i = 0; i < array.length; i++){
+        for (int i = 0; i < array.length; i++) {
             array[i] = initialValue;
         }
         return array;
     }
 
-    static public void print(String message){
+    public static int getMin(int[] array) {
+        int min = array[0];
+        for (int item : array) {
+            if (item < min) {
+                min = item;
+            }
+        }
+        return min;
+    }
+
+    public static int getMax(int[] array) {
+        int max = array[0];
+        for (int item : array) {
+            if (item > max) {
+                max = item;
+            }
+        }
+        return max;
+    }
+
+    public static boolean checkBalance(int[] array) {
+        int currentSum = 0;
+        int sum = getSumOfMembers(array);
+        if (sum % 2 != 0) {
+            return false;
+        }
+
+        for (int item : array) {
+            if ((currentSum += item) == sum / 2) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static int getSumOfMembers(int[] array) {
+        return Arrays.stream(array).sum();
+    }
+
+    public static int[] moveContent(int[] array, int step) {
+        step = step*(-1);
+        if (step < 0) {
+            step = array.length + step;
+        }
+        for (int j = 0; j < step; j++) {
+            for (int i = 0; i < array.length - 1; i++) {
+                array[i] = array[i] + array[i + 1];
+                array[i + 1] = array[i] - array[i + 1];
+                array[i] = array[i] - array[i + 1];
+            }
+        }
+        return array;
+    }
+
+
+    static public void print(String message) {
         System.out.println(message);
     }
 
-    static public void printArray(int[] array){
-        Arrays.stream(array).forEach((e) -> System.out.print(e+" "));
+    static public void print(int message) {
+        System.out.println(message);
+    }
+
+    static public void print(boolean message) {
+        System.out.println(message);
+    }
+
+    static public void printArray(int[] array) {
+        Arrays.stream(array).forEach((e) -> System.out.print(e + " "));
         System.out.println();
     }
 
     static public int[][] fillInTheDiagonals(int[][] matrix) throws Exception {
 
-        if (matrix.length != matrix[0].length){
+        if (matrix.length != matrix[0].length) {
             throw new Exception("Matrix is wrong");
         }
 
-        for (int i = 0; i < matrix.length; i++){
-            for (int j = 0; j < matrix.length; j++){
-                if( i == j || (i + j) == matrix.length-1 ){
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                if (i == j || (i + j) == matrix.length - 1) {
                     matrix[i][j] = 1;
                 }
             }
@@ -111,37 +174,24 @@ public class LessonThree {
         int[] array = new int[]{1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
         printArray(getMultiplicationSomeMembers(array));
 //4.
-//        Создать квадратный двумерный целочисленный массив (количество строк и столбцов
-//                одинаковое), и с помощью цикла(-ов) заполнить его диагональные элементы единицами
-//                (можно только одну из диагоналей, если обе сложно). Определить элементы одной из
-//        диагоналей можно по следующему принципу: индексы таких элементов равны, то есть [0][0],
-//[1][1], [2][2], …, [n][n];
 
-        int[][] emptyMatrix = new int[][]{{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0}};
+        int[][] emptyMatrix = new int[][]{{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}};
         printMatrix(emptyMatrix);
         printMatrix(fillInTheDiagonals(emptyMatrix));
 //5.
-//        5. Написать метод, принимающий на вход два аргумента: len и initialValue, и возвращающий
-//        одномерный массив типа int длиной len, каждая ячейка которого равна initialValue;
+
         printArray(getArray(5, 8));
 
-//        6. * Задать одномерный массив и найти в нем минимальный и максимальный элементы ;
+//6. * Задать одномерный массив и найти в нем минимальный и максимальный элементы ;
+        print(getMin(array));
+        print(getMax(array));
 
+// 7.
 
-//        7. ** Написать метод, в который передается не пустой одномерный целочисленный массив,
-//                метод должен вернуть true, если в массиве есть место, в котором сумма левой и правой части
-//        массива равны.
-//        Примеры:
-//        checkBalance([2, 2, 2, 1, 2, 2, ||| 10, 1]) → true, т.е. 2 + 2 + 2 + 1 + 2 + 2 = 10 + 1
-//        checkBalance([1, 1, 1, ||| 2, 1]) → true, т.е. 1 + 1 + 1 = 2 + 1
-//        граница показана символами |||, эти символы в массив не входят и не имеют никакого
-//        отношения к ИЛИ.
-//        8. *** Написать метод, которому на вход подается одномерный массив и число n (может быть
-//        положительным, или отрицательным), при этом метод должен сместить все элементы массива
-//        на n позиций. Элементы смещаются циклично. Для усложнения задачи нельзя пользоваться
-//        вспомогательными массивами. Примеры: [ 1, 2, 3 ] при n = 1 (на один вправо) -> [ 3, 1, 2 ]; [ 3, 5,
-//                6, 1] при n = -2 (на два влево) -> [ 6, 1, 3, 5 ]. При каком n в какую сторону сдвиг можете
-//        выбирать сами.
-
+        int[] arrayForCheck = new int[]{1, 1, 1, 2, 1};
+        print(checkBalance(arrayForCheck));
+// 8.
+        int[] arrayForMove = new int[]{1, 2, 3, 4, 5};
+        printArray(moveContent(arrayForMove, 1));
     }
 }
