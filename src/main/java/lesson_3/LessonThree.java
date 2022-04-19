@@ -139,9 +139,8 @@ public class LessonThree {
 
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
-                if (i == j || (i + j) == matrix.length - 1) {
-                    matrix[i][j] = 1;
-                }
+                    matrix[i][matrix.length-(i+1)] = 1;
+                    matrix[i][i] = 1;
             }
         }
         return matrix;
@@ -175,7 +174,7 @@ public class LessonThree {
         printArray(getMultiplicationSomeMembers(array));
 //4.
 
-        int[][] emptyMatrix = new int[][]{{0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}};
+        int[][] emptyMatrix = new int[5][5];
         printMatrix(emptyMatrix);
         printMatrix(fillInTheDiagonals(emptyMatrix));
 //5.
