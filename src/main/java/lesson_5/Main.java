@@ -1,5 +1,7 @@
 package lesson_5;
 
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
         Employee[] employees = new Employee[5];
@@ -19,9 +21,8 @@ public class Main {
                 "Рабочий", "petrov@gmail.com",
                 "+375296333333", 500, 45);
 
-        for (Employee employee : employees) {
-            employee.printEmployee();
-        }
+//5.
+        Arrays.stream(employees).filter(employee -> employee.getAge() > 40).forEach(employee -> employee.printEmployee());
 
     }
 
