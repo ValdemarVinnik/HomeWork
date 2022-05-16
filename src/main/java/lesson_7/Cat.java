@@ -14,14 +14,14 @@ public class Cat {
         this.appetite = appetite;
     }
 
-    public void eat(Plate p) {
-        if (p.getFood() < appetite){
-            return;
+    public void eat(Plate p) throws Exception {
+//        if (p.getFood() < appetite){
+//            return;
+//        }
+        if(p.decreaseFood(appetite)) {
+            this.appetite = 0;
+            wellFed = true;
         }
-        p.decreaseFood(appetite);
-
-        this.appetite = 0;
-        wellFed = true;
     }
 
     public void printCatCondition(){

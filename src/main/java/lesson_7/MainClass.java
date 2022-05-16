@@ -2,7 +2,7 @@ package lesson_7;
 
 
 public class MainClass {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Cat[] cats = new Cat[]{
                 new Cat("Pushok", 4),
                 new Cat("Begemot", 7),
