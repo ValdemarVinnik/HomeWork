@@ -1,5 +1,6 @@
 package lesson_8;
 
+import java.awt.*;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -53,13 +54,14 @@ public class TextConverter {
         letters.put(" "," ");
     }
 
-    public void setText(String text){
+    public void setText(String text) throws InterruptedException {
         morse = null;
         StringBuilder builder = new StringBuilder();
         for(String letter: text.toLowerCase().split("")){
             builder.append(letters.get(letter)+" ");
         }
         morse = builder.toString();
+        playMassage();
     }
     private void playDot() throws InterruptedException {
         sound.play();
@@ -78,6 +80,7 @@ public class TextConverter {
     public void printMorse(){
         System.out.println(morse);
     }
+
     private void playMassage() throws InterruptedException {
         for(String each: morse.split("")){
             switch (each){
@@ -90,18 +93,14 @@ public class TextConverter {
         }
     }
 
-    public static void main(String[] args) throws MalformedURLException, InterruptedException {
-        TextConverter converter = new TextConverter();
-        converter.setText("мама мы");
-        converter.printMorse();
-        converter.playMassage();
-
-
-//            converter.sound.play();
-//        Thread.sleep(500);
-//        converter.sound.stop();
-//        Thread.sleep(500);
-//        converter.sound.play();
-//        Thread.sleep(1000);
-    }
+//    public static void main(String[] args) throws MalformedURLException, InterruptedException {
+//        TextConverter converter = new TextConverter();
+//        converter.setText("мама мы");
+//       // converter.printMorse();
+//       // converter.playMassage();
+//
+//
+//
+////
+//    }
 }
