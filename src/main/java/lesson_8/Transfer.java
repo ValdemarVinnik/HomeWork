@@ -4,13 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.MalformedURLException;
 
 public class Transfer extends JFrame {
     private TextConverter textConverter;
 
     private JLabel firstDisplay;
-    String alphabet = "йцукенгшщзхъфывапролджэячсмитьбю.,";
+
+    private String alphabet = "йцукенгшщзхъфывапролджэячсмитьбю.,";
 
     ActionListener letterListener = new ActionListener() {
 
@@ -20,8 +20,10 @@ public class Transfer extends JFrame {
             String message = firstDisplay.getText();
             message += button.getText();
             firstDisplay.setText(message);
+
         }
     };
+
     ActionListener spaceListener = new ActionListener() {
 
         @Override
@@ -43,12 +45,14 @@ public class Transfer extends JFrame {
             firstDisplay.setText(message);
         }
     };
+
     ActionListener sendButtonListener = new ActionListener() {
 
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             JButton button = (JButton) actionEvent.getSource();
             String message = firstDisplay.getText();
+
             try {
                 textConverter.setText(message);
             } catch (InterruptedException e) {
@@ -62,27 +66,15 @@ public class Transfer extends JFrame {
 
         setTitle("Рация шпиЁна");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setBounds(300, 300, 300, 300);
+        setBounds(300, 300, 500, 250);
+        setResizable(false);
 
-        JPanel jPanel = new JPanel();
-        jPanel.setLayout(new GridLayout(2, 1));
-        firstDisplay = new JLabel("->");
-        firstDisplay.setHorizontalAlignment(SwingConstants.LEFT);
-        firstDisplay.setFont(new Font("Arial", Font.BOLD, 20));
-
-        JLabel secondDisplay = new JLabel("<-");
-        secondDisplay.setHorizontalAlignment(SwingConstants.LEFT);
-        secondDisplay.setFont(new Font("Arial", Font.BOLD, 20));
-       jPanel.add(firstDisplay);
-        jPanel.add(secondDisplay);
-
-        add(jPanel,BorderLayout.NORTH);
+        add(setDisplay(), BorderLayout.NORTH);
         add(setLetters(), BorderLayout.CENTER);
 
         JButton sendButton = new JButton("ОТПРАВИТЬ В КРЕМЛЬ");
         sendButton.addActionListener(sendButtonListener);
         add(sendButton, BorderLayout.SOUTH);
-
 
         setVisible(true);
     }
@@ -106,8 +98,17 @@ public class Transfer extends JFrame {
         return lettersPanel;
     }
 
-    public static void main(String[] args) throws MalformedURLException {
-new Transfer(new TextConverter());
+    private JLabel setDisplay() {
 
+        firstDisplay = new JLabel("");
+        firstDisplay.setHorizontalAlignment(SwingConstants.RIGHT);
+        firstDisplay.setFont(new Font("Arial", Font.BOLD, 20));
+
+        return firstDisplay;
+    }
+
+    public static void main(String[] args) {
+        TextConverter textConverter = new TextConverter();
+         new Transfer(textConverter);
     }
 }
