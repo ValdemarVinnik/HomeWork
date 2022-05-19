@@ -8,7 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TextConverter {
-    public  final Sound sound = new Sound (new File("src/main/java/lesson_8/pisk.wav"));
+//    public  final Sound sound = new Sound (new File("src/main/java/lesson_8/pisk.wav"));
+public  final Sound sound = new Sound (new File("src/main/java/lesson_8/ton.wav"));
 
     private Map<String,String> letters;
     String morse;
