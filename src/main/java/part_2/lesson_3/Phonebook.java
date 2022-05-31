@@ -12,18 +12,18 @@ public class Phonebook {
     private Map<String, ArrayList<String>> map;
     private static Phonebook phonebook;
 
-    private Phonebook(){
+    private Phonebook() {
         this.map = new HashMap<>();
         this.phonebook = this;
     }
 
-    public static Phonebook getInstance(){
-        return phonebook != null? phonebook: new Phonebook();
+    public static Phonebook getInstance() {
+        return phonebook != null ? phonebook : new Phonebook();
     }
 
-    public boolean addPerson(String secondName, String phoneNumber){
+    public boolean addPerson(String secondName, String phoneNumber) {
 
-        if (!isValid(phoneNumber)){
+        if (!isValid(phoneNumber)) {
             printMessage(WRONG_PHONE_NUMBER);
             return false;
         }
@@ -39,10 +39,10 @@ public class Phonebook {
         return true;
     }
 
-    public String getNumber(String secondName) {
+    public void printPersonsNumber(String secondName) {
+        printMessage(String.format("%s :",secondName));
+        map.get(secondName).forEach((e) -> System.out.printf("          %s \n", e));
 
-        map.get(secondName);
-        return null;
     }
 
     public String getPerson(String phoneNumber) {
@@ -53,7 +53,7 @@ public class Phonebook {
 
         for (Map.Entry<String, ArrayList<String>> pair : map.entrySet()) {
             for (String number : pair.getValue()) {
-                if (number.equals(phonebook)) {
+                if (number.equals(phoneNumber)) {
                     return pair.getKey();
                 }
             }
@@ -76,11 +76,11 @@ public class Phonebook {
         }
     }
 
-    public void printPhoneBook(){
+    public void printPhoneBook() {
 
-        for (Map.Entry<String, ArrayList<String>> pair : map.entrySet()){
-            System.out.print(String.format("%s : ", pair.getKey()));
-            pair.getValue().forEach((e) -> System.out.printf("          %s \n",e));
+        for (Map.Entry<String, ArrayList<String>> pair : map.entrySet()) {
+            System.out.print(String.format("%s : \n", pair.getKey()));
+            pair.getValue().forEach((e) -> System.out.printf("          %s \n", e));
         }
     }
 
