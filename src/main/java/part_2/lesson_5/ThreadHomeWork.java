@@ -37,11 +37,17 @@ public class ThreadHomeWork {
             if (i <= size / 2)
                 firstHalfArr[i] = arr[i];
             else {
-                secondHalfArr[i - size/2] = arr[i];            }
+                secondHalfArr[i - size / 2] = arr[i];
+            }
         }
 
 // Запускает два потока и параллельно просчитываем каждый малый массив
-
+        MyThreadArrayExecutor firstExecutor = new MyThreadArrayExecutor();
+        MyThreadArrayExecutor secondExecutor = new MyThreadArrayExecutor();
+        firstExecutor.setArray(firstHalfArr);
+        secondExecutor.setArray(secondHalfArr);
+        firstExecutor.start();
+        secondExecutor.start();
 // Склеиваем малые массивы обратно в один большой
 // ...
         System.out.println("Two thread time: " + (System.currentTimeMillis() -
@@ -54,3 +60,4 @@ public class ThreadHomeWork {
 
 
 }
+
