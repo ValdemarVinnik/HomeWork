@@ -48,6 +48,8 @@ public class Server {
         }
     }
 
+
+
     private void openConnection() throws IOException {
         ServerSocket serverSocket = new ServerSocket(8888);
         System.out.println("-> Server is waiting connection.....");
@@ -58,36 +60,6 @@ public class Server {
 
         in = new DataInputStream(socket.getInputStream());
         out = new DataOutputStream(socket.getOutputStream());
-
-//        Thread threadListener = new Thread()  {
-//
-//
-//            @Override
-//            public void run() {
-//                try {
-//                    while (connectionIsAlive) {
-//
-//                        message = in.readUTF();
-//
-//                        System.out.println("[client] -> " + message); // to make a method()
-//
-//                        if ("/end".equalsIgnoreCase(message)) {
-//                            out.writeUTF(message);
-//                            break;
-//                        }
-//                    }
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                } finally {
-//                    closeConnection();
-//                }
-//            }
-//        };
-//
-//        threadListener.setDaemon(true);
-//        threadListener.start();
-//
-
     }
 
     private void closeConnection() {
@@ -119,49 +91,23 @@ public class Server {
         }
     }
 
-
-//    public static void main(String[] args) {
-//        try (ServerSocket serverSocket = new ServerSocket(8888)) {
-//
-//            System.out.println("Жду подключения");
-//            final Socket socket = serverSocket.accept();
-//            System.out.println("Клиент подключился");
-//
-//            final DataInputStream in = new DataInputStream(socket.getInputStream());
-//            final DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-//
-//            while (true) {
-//                String message = in.readUTF();
-//
-//                if ("/end".equalsIgnoreCase(message)) {
-//                    out.writeUTF("/end");
-//                    break;
-//                }
-//
-//                System.out.println("Сообщение от клиента: " + message);
-//                out.writeUTF(message);
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
-
     private Thread getThreadReader() {
         Thread threadReader = new Thread() {
             @Override
             public void run() {
 
                 try {
-                    do {
+                    while (connectionIsAlive) {
+
                         message = in.readUTF();
                         System.out.println("[client]-> " + message);
+
 
                         if ("/end".equalsIgnoreCase(message)) {
                             connectionIsAlive = false;
                             closeConnection();
                         }
-                    } while (connectionIsAlive);
+                    }
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -196,6 +142,10 @@ public class Server {
 
         threadWriter.setDaemon(true);
         return threadWriter;
+    }
+
+    private void printToConsole(String message){
+        System.out.printf("[client] <- %s \n", message);
     }
 
 
