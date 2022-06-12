@@ -135,12 +135,6 @@ public class Server {
                         e.printStackTrace();
                     }
 
-//                    if ("/end".equalsIgnoreCase(clientMessage)) {
-//                        System.out.println("closeConnection");
-//                        connectionIsAlive = false;
-//                        closeConnection();
-
- //                   }
                 } while (connectionIsAlive);
             }
         };
