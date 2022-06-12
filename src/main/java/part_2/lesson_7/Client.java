@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 public class Client {
 
+    private final int PORT = 8888;
+    private final String LOCAL_HOST = "127.0.0.1";
 
     private String message;
     private Socket socket;
@@ -42,42 +44,23 @@ public class Client {
         }
     }
 
-    private void sendMessage(String message) {
-        try {
-            out.writeUTF(message);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void sendMessage(String serversMessage) throws IOException {
+        out.writeUTF(serversMessage);
+    }
+
+    private String readMessage() throws IOException {
+        String message =  in.readUTF();
+        printToConsole(message);
+        return  message;
     }
 
     private void openConnection() throws IOException {
 
-        socket = new Socket("127.0.0.1", 8888);
+        socket = new Socket(LOCAL_HOST, PORT);
         in = new DataInputStream(socket.getInputStream());
         out = new DataOutputStream(socket.getOutputStream());
 
         connectionIsAlive = true;
-
-//         Thread threadListener = new Thread() {
-//            @Override
-//            public void run() {
-//
-//                try {
-//                    do {
-//                        message = in.readUTF();
-//                        System.out.println("[server]-> " + message);
-//                    } while (!"/end".equalsIgnoreCase(message));
-//
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                } finally {
-//                    closeConnection();
-//                }
-//            }
-//        };
-//
-//         threadListener.setDaemon(true);
-//         threadListener.start();
     }
 
     private void closeConnection() {
@@ -116,7 +99,11 @@ public class Client {
 
                 do {
                     String clientMessage = scanner.nextLine();
-                    sendMessage(clientMessage);
+                    try {
+                        sendMessage(clientMessage);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                     if ("/end".equalsIgnoreCase(clientMessage)) {
                         connectionIsAlive = false;
@@ -136,15 +123,15 @@ public class Client {
             public void run() {
 
                 try {
-                    do {
-                        message = in.readUTF();
-                        System.out.println("[server]-> " + message);
+                    while (connectionIsAlive) {
+
+                        message = readMessage();
 
                         if ("/end".equalsIgnoreCase(message)) {
                             connectionIsAlive = false;
                             closeConnection();
                         }
-                    } while (connectionIsAlive);
+                    }
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -158,6 +145,9 @@ public class Client {
         return threadReader;
     }
 
+    private void printToConsole(String message) {
+        System.out.printf("[server] <- %s \n", message);
+    }
 
     public static void main(String[] args) {
         new Client().start();

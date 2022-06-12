@@ -9,6 +9,8 @@ import java.util.Scanner;
 
 public class Server {
 
+    private final int PORT = 8888;
+
     private String message;
     private DataOutputStream out;
     private DataInputStream in;
@@ -40,18 +42,18 @@ public class Server {
         }
     }
 
-    private void sendMessage(String serversMessage) {
-        try {
-            out.writeUTF(serversMessage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void sendMessage(String serversMessage) throws IOException {
+        out.writeUTF(serversMessage);
     }
 
-
+    private String readMessage() throws IOException {
+        String message = in.readUTF();
+        printToConsole(message);
+        return message;
+    }
 
     private void openConnection() throws IOException {
-        ServerSocket serverSocket = new ServerSocket(8888);
+        ServerSocket serverSocket = new ServerSocket(PORT);
         System.out.println("-> Server is waiting connection.....");
         Socket socket = serverSocket.accept();
         System.out.println("-> client connected.");
@@ -99,9 +101,7 @@ public class Server {
                 try {
                     while (connectionIsAlive) {
 
-                        message = in.readUTF();
-                        System.out.println("[client]-> " + message);
-
+                        message = readMessage();
 
                         if ("/end".equalsIgnoreCase(message)) {
                             connectionIsAlive = false;
@@ -128,7 +128,12 @@ public class Server {
 
                 do {
                     String clientMessage = scanner.nextLine();
-                    sendMessage(clientMessage);
+
+                    try {
+                        sendMessage(clientMessage);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                     if ("/end".equalsIgnoreCase(clientMessage)) {
                         System.out.println("closeConnection");
@@ -144,10 +149,9 @@ public class Server {
         return threadWriter;
     }
 
-    private void printToConsole(String message){
+    private void printToConsole(String message) {
         System.out.printf("[client] <- %s \n", message);
     }
-
 
     public static void main(String[] args) {
         new Server().start();
