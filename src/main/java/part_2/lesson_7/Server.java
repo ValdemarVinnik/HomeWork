@@ -16,7 +16,7 @@ public class Server {
     private DataInputStream in;
     private Socket socket;
     private Scanner scanner;
-    private boolean connectionIsAlive;
+    private volatile boolean connectionIsAlive;
 
     public Server() {
         this.scanner = new Scanner(System.in);
@@ -104,7 +104,7 @@ public class Server {
                         message = readMessage();
 
                         if ("/end".equalsIgnoreCase(message)) {
-                            connectionIsAlive = false;
+                            sendMessage("/end");
                             closeConnection();
                         }
                     }
@@ -135,12 +135,12 @@ public class Server {
                         e.printStackTrace();
                     }
 
-                    if ("/end".equalsIgnoreCase(clientMessage)) {
-                        System.out.println("closeConnection");
-                        connectionIsAlive = false;
-                        closeConnection();
+//                    if ("/end".equalsIgnoreCase(clientMessage)) {
+//                        System.out.println("closeConnection");
+//                        connectionIsAlive = false;
+//                        closeConnection();
 
-                    }
+ //                   }
                 } while (connectionIsAlive);
             }
         };

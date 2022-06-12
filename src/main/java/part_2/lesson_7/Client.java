@@ -104,11 +104,6 @@ public class Client {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
-                    if ("/end".equalsIgnoreCase(clientMessage)) {
-                        connectionIsAlive = false;
-                        closeConnection();
-                    }
                 }while (connectionIsAlive);
             }
         };
@@ -128,7 +123,7 @@ public class Client {
                         message = readMessage();
 
                         if ("/end".equalsIgnoreCase(message)) {
-                            connectionIsAlive = false;
+                            sendMessage(message);
                             closeConnection();
                         }
                     }
