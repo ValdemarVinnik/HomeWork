@@ -1,6 +1,8 @@
 package part_3.lesson_1;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class Solution_1_2 {
 
@@ -16,8 +18,17 @@ public class Solution_1_2 {
         return array;
     }
 
+    public static <T> ArrayList<T> toArrayListConvert(T...array){
+       return(ArrayList<T>) Arrays.stream(array).collect(Collectors.toList());
+    }
+
     public static <T> void  printArray(T[] array){
         Arrays.stream(array).forEach(e -> System.out.printf("%s ",e));
+        System.out.println();
+    }
+
+    public static <T> void  printArray(ArrayList<T> array){
+        array.stream().forEach(e -> System.out.printf("%s ",e));
         System.out.println();
     }
 
@@ -27,6 +38,9 @@ public class Solution_1_2 {
 
         printArray(swap(array1,0,3));
         printArray(swap(array2,0,3));
+
+        printArray(toArrayListConvert(array1));
+        printArray(toArrayListConvert(array2));
 
     }
 }
