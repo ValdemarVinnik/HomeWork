@@ -6,6 +6,8 @@ public class Solution_1_2 {
 
     public static  <T> T[] swap(T[] array, int index1, int index2){
         if (array == null) throw new NullPointerException("Sent array is null");
+        if (index1 > array.length-1 || index2 > array.length-1 ||
+               index1 < 0 || index2 < 0) throw new IndexOutOfBoundsException();
 
         T box = array[index1];
         array[index1] = array[index2];
