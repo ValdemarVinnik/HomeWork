@@ -25,5 +25,19 @@ public class Main {
      * g*. Метод из g должен принимать varargs: ...
      */
 
+    public static void main(String[] args) {
+        Box<Apple> box1 = new Box (new Apple(), new Apple(), new Apple(), new Orange());
+        //box1.putInABox(new Orange());
+        box1.putInABox(new GoldenApple());
+        Box<Orange>box2 = new Box (new Orange(), new Orange() ,new Orange(),new Apple());
+        //box2.putInABox(new Apple());
 
+        System.out.println(box1.getWeight());
+        System.out.println(box2.getWeight());
+
+        System.out.println(box1.compare(box2));
+        box1.pourFruitIntoAnotherBox(box2);
+        System.out.println(box1.getWeight());
+        System.out.println(box2.getWeight());
+    }
 }

@@ -7,11 +7,7 @@ package part_3.lesson_1.fruits;
         this.weight = weight;
     }
 
-    public void setWeight(float weight) {
-        this.weight = weight;
-    }
-
-    public float getWeight(){
+    public float getFruitWeight(){
         return this.weight;
     }
 }
