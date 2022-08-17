@@ -23,4 +23,24 @@ public class Box <T extends Fruit>{
 
         return (float)list.stream().map(Fruit::getWeight).count();
     }
+
+
+    public boolean compare(Box box) {
+        return (this.getWeight() == box.getWeight());
+    }
+
+    public boolean cleanTheBox(){
+        list.clear();
+        return list.isEmpty();
+    }
+
+//    public Box sprinkleFruit(Box box){
+//        if (this.cleanTheBox()){
+//            this.putInABox((box.giveContent().toArray());
+//        }
+//    }
+
+    public List<? extends T> giveContent(){
+        return list;
+    }
 }
