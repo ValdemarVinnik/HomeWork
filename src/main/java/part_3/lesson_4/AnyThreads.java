@@ -1,10 +1,10 @@
 package part_3.lesson_4;
 
 public class AnyThreads {
+
     private final int REPEAT = 5;
     private volatile String currentLetter = "C";
     private volatile String lastLetter = "B";
-
     private final Object monitor = new Object();
 
     private void printLetter(String letter) {

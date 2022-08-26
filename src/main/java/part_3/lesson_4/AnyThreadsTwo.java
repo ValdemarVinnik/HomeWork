@@ -1,10 +1,9 @@
 package part_3.lesson_4;
 
 public class AnyThreadsTwo {
-    private volatile String currentLetter ;
 
+    private volatile String currentLetter;
     private final int REPEAT = 5;
-
     private Object monitor = new Object();
 
     private void printA() {
@@ -70,19 +69,19 @@ public class AnyThreadsTwo {
         AnyThreadsTwo threads = new AnyThreadsTwo();
         new Thread(() -> {
 
-                threads.printA();
+            threads.printA();
 
         }).start();
 
         new Thread(() -> {
 
-                threads.printB();
+            threads.printB();
 
         }).start();
 
         new Thread(() -> {
 
-                threads.printC();
+            threads.printC();
 
         }).start();
     }
