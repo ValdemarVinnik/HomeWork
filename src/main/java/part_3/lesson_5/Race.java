@@ -1,5 +1,7 @@
 package part_3.lesson_5;
 
+import part_3.lesson_5.stages.Stage;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 

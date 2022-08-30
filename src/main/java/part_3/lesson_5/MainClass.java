@@ -1,5 +1,8 @@
 package part_3.lesson_5;
 
+import part_3.lesson_5.stages.Road;
+import part_3.lesson_5.stages.Tunnel;
+
 public class MainClass {
     public static final int CARS_COUNT = 4;
     public static void main(String[] args) {
