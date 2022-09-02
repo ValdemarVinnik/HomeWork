@@ -15,6 +15,11 @@ public class InspectArrayTest {
     }
 
     @Test
+    public void unitNegativeInspectArrayTestWithOnlyOneKindOfNumber() {
+        Assert.assertTrue(!ArrayUtil.inspectArray(1, 4, 1, 1, 1, 1, 1, 1, 1));
+    }
+
+    @Test
     public void unitNegativeInspectArrayTestExpectTrowsWithEmptyArray() {
         Assert.assertThrows(RuntimeException.class, () -> ArrayUtil.inspectArray(1, 4));
 

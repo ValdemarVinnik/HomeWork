@@ -20,17 +20,16 @@ public class ArrayUtil {
         Integer[] newArray = new Integer[finalList.size()];
         finalList.toArray(newArray);
         return newArray;
-
-
     }
 
-    public static boolean inspectArray(int firstNumberForInspect, int secondNumberForInspect, Integer...array) {
+    public static boolean inspectArray(int firstNumberForInspect, int secondNumberForInspect, Integer...array){
         if (array == null || array.length == 0) {
             throw new RuntimeException();
         }
-        return Arrays.stream(array).allMatch(e -> (e == firstNumberForInspect || e == secondNumberForInspect));
+        return (Arrays.stream(array).allMatch(e -> (e == firstNumberForInspect || e == secondNumberForInspect))&
+                Arrays.stream(array).anyMatch(e -> (e == firstNumberForInspect))&
+                Arrays.stream(array).anyMatch(e -> (e == secondNumberForInspect)));
     }
-
 
     private static <T> void printList(List<T> list) {
         list.stream().forEach(e -> System.out.printf("%d ", e));
