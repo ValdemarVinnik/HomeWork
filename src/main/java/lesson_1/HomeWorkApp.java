@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 public class HomeWorkApp {
 
+
     public void printThreeWords() {
         String[] array = new String[]{"Orange", "Banana", "Apple"};
         Arrays.stream(array).forEach((e) -> System.out.println(e));
@@ -57,4 +58,5 @@ public class HomeWorkApp {
         work.compareNumbers();
 
     }
+
 }
